@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raunak Vaigankar | Backend Developer</title>
+<meta name="description" content="Computer Engineering student and aspiring Backend Developer building with Node.js, Express.js and MongoDB.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --accent-color:#8B5CF6;
+  --accent-soft:rgba(139,92,246,.14);
+  --bg:#000;
+  --surface:#0d0b14;
+  --line:#221d33;
+  --text:#f2f0f8;
+  --muted:#9a95ab;
+  --font:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-color);color:#fff}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent-color);outline-offset:4px}
+body,a,button{cursor:none !important}
+@media (pointer:coarse){body,a,button{cursor:auto !important}.cursor,.cursor-dot{display:none}}
+
+/* Cursor */
+.cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;opacity:0}
+.cursor{width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid var(--accent-color);transition:width .3s,height .3s,margin .3s,background .3s,border-radius .3s}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--accent-color)}
+.cursor.hover{width:68px;height:68px;margin:-34px 0 0 -34px;background:var(--accent-soft)}
+.cursor.down{width:24px;height:24px;margin:-12px 0 0 -12px}
+
+/* Layout */
+.wrap{width:min(1080px,100% - 48px);margin-inline:auto}
+section{padding:clamp(72px,12vw,140px) 0}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;letter-spacing:-.02em;margin-bottom:40px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;backdrop-filter:blur(14px);background:rgba(0,0,0,.65);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.logo span{color:var(--accent-color)}
+nav ul{display:flex;gap:28px;list-style:none;font-size:.95rem;color:var(--muted)}
+nav ul a{transition:color .2s}
+nav ul a:hover{color:var(--text)}
+
+/* Hero */
+#hero{min-height:100svh;display:flex;align-items:center;padding-top:110px;position:relative}
+#hero::before{content:"";position:absolute;right:-10%;top:18%;width:min(560px,70vw);aspect-ratio:1;background:radial-gradient(circle,rgba(139,92,246,.28),transparent 68%);filter:blur(30px);pointer-events:none}
+.hero-title{font-size:clamp(2.8rem,9vw,7rem);font-weight:800;line-height:1;letter-spacing:-.045em}
+.hero-title .line{display:block;overflow:hidden;padding-bottom:.08em}
+.hero-title .line span{display:inline-block}
+.hero-title .line:last-child{color:var(--accent-color)}
+.hero-sub{margin-top:28px;max-width:560px;font-size:clamp(1.05rem,2vw,1.25rem);color:var(--muted);font-weight:300}
+.hero-actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:.95rem;transition:background .25s,border-color .25s,color .25s}
+.btn.primary{background:var(--accent-color);border-color:var(--accent-color);color:#fff}
+.btn.primary:hover{background:#7c3aed}
+.btn:not(.primary):hover{border-color:var(--accent-color);color:var(--accent-color)}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(32px,6vw,80px);align-items:start}
+.about-text p{color:var(--muted);font-size:1.08rem;margin-bottom:18px;max-width:62ch}
+.about-text p:first-child{color:var(--text);font-size:1.3rem;font-weight:400}
+.profile{border:1px solid var(--line);border-radius:20px;padding:28px;background:var(--surface);text-align:center}
+.profile img{width:112px;height:112px;border-radius:50%;border:2px solid var(--accent-color);padding:3px;object-fit:cover;background:var(--bg)}
+.profile h3{margin-top:16px;font-size:1.15rem}
+.profile small{color:var(--muted)}
+.stats{display:flex;justify-content:center;gap:28px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.stats b{display:block;font-size:1.5rem;font-weight:800;color:var(--accent-color)}
+.stats span{font-size:.85rem;color:var(--muted)}
+
+/* Skills */
+.skill-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px}
+.skill-groups h3{font-size:1rem;font-weight:600;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips span{padding:7px 15px;border:1px solid var(--line);border-radius:999px;font-size:.9rem;color:var(--muted);transition:border-color .25s,color .25s,background .25s}
+.chips span:hover{border-color:var(--accent-color);color:var(--text);background:var(--accent-soft)}
+
+/* Projects */
+#repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;perspective:1000px}
+.repo{display:flex;flex-direction:column;padding:26px;border:1px solid var(--line);border-radius:18px;background:var(--surface);transform-style:preserve-3d;transition:border-color .3s,box-shadow .3s;will-change:transform}
+.repo:hover{border-color:var(--accent-color);box-shadow:0 20px 50px -20px rgba(139,92,246,.45)}
+.repo h3{font-size:1.2rem;font-weight:600;margin-bottom:10px;word-break:break-word;transform:translateZ(30px)}
+.repo p{color:var(--muted);font-size:.95rem;flex:1;margin-bottom:20px}
+.repo-meta{display:flex;gap:18px;font-size:.85rem;color:var(--muted);align-items:center;flex-wrap:wrap}
+.repo-meta i{color:var(--accent-color);margin-right:5px}
+.state{color:var(--muted)}
+
+/* Contact */
+#contact{text-align:center}
+#contact h2{margin-bottom:16px}
+#contact p{color:var(--muted);max-width:480px;margin:0 auto 32px}
+.socials{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+footer{padding:32px 0;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.85rem}
+
+@media (max-width:760px){
+  nav ul{gap:18px;font-size:.88rem}
+  .about-grid{grid-template-columns:1fr}
+}
+@media (max-width:480px){nav ul li:nth-child(2){display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#hero" class="logo">raunak<span>.</span></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<section id="hero">
+  <div class="wrap">
+    <h1 class="hero-title" aria-label="Raunak Vaigankar, Backend Developer">
+      <span class="line"><span>Raunak</span></span>
+      <span class="line"><span>Vaigankar</span></span>
+    </h1>
+    <p class="hero-sub">Computer Engineering student building backend systems with Node.js and Express.js that solve real-world problems.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="https://github.com/raunak-vaigankar" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/raunak-vaigankar-0b41aa428" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-text">
+      <h2>About me</h2>
+      <p>Hi, I'm Raunak Dnyaneshwar Vaigankar, a Computer Engineering student and aspiring Backend Developer.</p>
+      <p>I enjoy building backend systems that solve real-world problems. My primary focus is Node.js and Express.js, where I work with REST APIs, MongoDB, authentication, authorization, validation, file uploads, and structured backend architectures.</p>
+      <p>I'm currently strengthening my backend development skills by building practical projects and learning how production-level applications are designed, secured, and deployed.</p>
+      <p>I also have experience with Flutter and enjoy exploring different areas of software development.</p>
+      <p>My current goal is to grow as a professional Backend Developer and contribute to real-world software projects.</p>
+    </div>
+    <aside class="profile">
+      <img id="avatar" src="https://github.com/raunak-vaigankar.png" alt="Raunak Vaigankar">
+      <h3 id="gh-name">Raunak Vaigankar</h3>
+      <small>@raunak-vaigankar</small>
+      <div class="stats">
+        <div><b id="gh-followers">–</b><span>Followers</span></div>
+        <div><b id="gh-repos">–</b><span>Repos</span></div>
+        <div><b id="gh-following">–</b><span>Following</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="skill-groups">
+      <div><h3>Backend</h3><div class="chips"><span>Node.js</span><span>Express.js</span><span>REST APIs</span><span>Authentication</span><span>Authorization</span><span>Validation</span><span>File uploads</span></div></div>
+      <div><h3>Database</h3><div class="chips"><span>MongoDB</span><span>Data modeling</span></div></div>
+      <div><h3>Also exploring</h3><div class="chips"><span>Flutter</span><span>Deployment</span><span>Application security</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <div id="repo-grid"><p class="state">Loading repositories…</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Let's connect</h2>
+    <p>Open to internships, collaborations, and conversations about backend development.</p>
+    <div class="socials">
+      <a class="btn primary" href="https://www.linkedin.com/in/raunak-vaigankar-0b41aa428" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <a class="btn" href="https://github.com/raunak-vaigankar" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="year"></span> Raunak Dnyaneshwar Vaigankar</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const GITHUB_USERNAME = "raunak-vaigankar";
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(pointer: fine)').matches;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Custom cursor */
+if (fine) {
+  const ring = document.getElementById('cursor'), dot = document.getElementById('cursorDot');
+  let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, shown = false;
+  addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px,${my}px)`;
+    if (!shown) { shown = true; ring.style.opacity = dot.style.opacity = 1; rx = mx; ry = my; }
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+    ring.style.transform = `translate(${rx}px,${ry}px)`;
+    requestAnimationFrame(loop);
+  })();
+  document.addEventListener('mouseover', e => ring.classList.toggle('hover', !!e.target.closest('a,button,.repo,.chips span')));
+  addEventListener('mousedown', () => ring.classList.add('down'));
+  addEventListener('mouseup', () => ring.classList.remove('down'));
+  document.documentElement.addEventListener('mouseleave', () => ring.style.opacity = dot.style.opacity = 0);
+  document.documentElement.addEventListener('mouseenter', () => shown && (ring.style.opacity = dot.style.opacity = 1));
+}
+
+/* Hero entrance */
+if (!reduce && window.gsap) {
+  gsap.from('.hero-title .line span', { yPercent: 110, duration: 1.1, ease: 'power4.out', stagger: 0.12, delay: 0.1 });
+  gsap.from(['.hero-sub', '.hero-actions'], { opacity: 0, y: 24, duration: 0.9, ease: 'power3.out', stagger: 0.15, delay: 0.7 });
+}
+
+/* Scroll reveal */
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (!en.isIntersecting) return;
+  io.unobserve(en.target);
+  gsap.to(en.target, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: en.target.dataset.delay || 0 });
+}), { threshold: 0.12 });
+function reveal(els) {
+  if (reduce || !window.gsap) return;
+  els.forEach((el, i) => { gsap.set(el, { opacity: 0, y: 40 }); el.dataset.delay = (i % 3) * 0.1; io.observe(el); });
+}
+reveal([...document.querySelectorAll('.about-text, .profile, .skill-groups > div')]);
+
+/* 3D tilt */
+function tilt(card) {
+  if (!fine || reduce) return;
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    gsap.to(card, { rotationY: x * 14, rotationX: -y * 14, transformPerspective: 900, duration: 0.4, ease: 'power2.out' });
+  });
+  card.addEventListener('mouseleave', () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.6, ease: 'power3.out' }));
+}
+
+/* GitHub */
+const el = id => document.getElementById(id);
+async function loadGitHub() {
+  const base = `https://api.github.com/users/${GITHUB_USERNAME}`;
+  const grid = el('repo-grid');
+  try {
+    const [uRes, rRes] = await Promise.all([fetch(base), fetch(base + '/repos?per_page=100')]);
+    if (!uRes.ok || !rRes.ok) throw new Error('GitHub API error ' + uRes.status);
+    const user = await uRes.json(), repos = await rRes.json();
+
+    el('avatar').src = user.avatar_url;
+    el('gh-name').textContent = user.name || user.login;
+    el('gh-followers').textContent = user.followers;
+    el('gh-following').textContent = user.following;
+    el('gh-repos').textContent = user.public_repos;
+
+    const top = repos.filter(r => !r.fork)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at))
+      .slice(0, 6);
+    grid.innerHTML = '';
+    if (!top.length) { grid.innerHTML = '<p class="state">No public repositories yet.</p>'; return; }
+
+    top.forEach(r => {
+      const a = document.createElement('a');
+      a.className = 'repo'; a.href = r.html_url; a.target = '_blank'; a.rel = 'noopener';
+      const h = document.createElement('h3'); h.textContent = r.name;
+      const p = document.createElement('p'); p.textContent = r.description || 'No description provided.';
+      const m = document.createElement('div'); m.className = 'repo-meta';
+      m.innerHTML = `<span><i class="fa-regular fa-star"></i>${r.stargazers_count}</span><span><i class="fa-solid fa-code-fork"></i>${r.forks_count}</span>`;
+      if (r.language) { const l = document.createElement('span'); l.innerHTML = '<i class="fa-solid fa-circle"></i>'; l.append(r.language); m.append(l); }
+      a.append(h, p, m); grid.append(a); tilt(a);
+    });
+    reveal([...grid.children]);
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML = `<p class="state">Couldn't load repositories right now (GitHub's rate limit may be reached). <a href="https://github.com/${GITHUB_USERNAME}?tab=repositories" target="_blank" rel="noopener" style="color:var(--accent-color)">View them on GitHub</a>.</p>`;
+  }
+}
+loadGitHub();
+</script>
+</body>
+</html>
